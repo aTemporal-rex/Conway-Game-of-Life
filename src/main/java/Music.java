@@ -18,7 +18,7 @@ public class Music {
 
                 // Volume control
                 FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-                gainControl.setValue(-25.0f); // Decrease volume by some decibel amount
+                gainControl.setValue(-30.0f); // Decrease volume by some decibel amount
 
                 clip.start();
                 clip.loop(Clip.LOOP_CONTINUOUSLY);

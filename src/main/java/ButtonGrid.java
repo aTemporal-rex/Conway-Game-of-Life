@@ -242,8 +242,8 @@ public class ButtonGrid extends JPanel {
         frame.setResizable(false);
         
         randomize.addActionListener(e -> {
-            for (int i = 0; i < table.getRowCount(); i++) {
-                for (int j = 0; j < table.getColumnCount(); j++) {
+            for (int i = 0; i < table.getRowCount(); ++i) {
+                for (int j = 0; j < table.getColumnCount(); ++j) {
                     if (new Random().nextBoolean()) {
                         data[i][j] = "x";
                         table.setValueAt("x", i, j);
@@ -311,15 +311,15 @@ public class ButtonGrid extends JPanel {
                 }
                 }
             };
-            timer.scheduleAtFixedRate(task, 0, 800);
+            timer.scheduleAtFixedRate(task, 0, 770);
         });
 
         stop.addActionListener(e -> isRunning = false);
     }
 
     public void step(JTable table, String[][] data, int length, int width) {
-        for (int i = 0; i < table.getRowCount(); i++) {
-            for (int j = 0; j < table.getColumnCount(); j++) {
+        for (int i = 0; i < table.getRowCount(); ++i) {
+            for (int j = 0; j < table.getColumnCount(); ++j) {
                 if (table.getValueAt(i, j) == null) {
                     data[i][j] = "";
                 } else {
@@ -329,8 +329,8 @@ public class ButtonGrid extends JPanel {
         }
         Object[][] futureData = stepOver(data, length, width);
 
-        for (int i = 0; i < length; i++) {
-            for (int j = 0; j < width; j++) {
+        for (int i = 0; i < length; ++i) {
+            for (int j = 0; j < width; ++j) {
                 if (futureData[i][j].toString().isEmpty() || futureData[i][j].equals(0))
                     table.setValueAt("", i, j);
                 else
@@ -342,20 +342,20 @@ public class ButtonGrid extends JPanel {
     public Object [][] stepOver(Object[][] grid, int x, int y)
     { 
         Object[][] nextGen = new Object[x][y]; 
-        for (int i = 0; i < x; i++)
+        for (int i = 0; i < x; ++i)
         {
-            for (int j = 0; j < y; j++)
+            for (int j = 0; j < y; ++j)
             {
                 nextGen[i][j] = "";
             } 
         }   
-        for (int l = 1; l < x - 1; l++)
+        for (int l = 1; l < x - 1; ++l)
         {
-            for (int m = 1; m < y - 1; m++)
+            for (int m = 1; m < y - 1; ++m)
             {
                 int aliveNeighbours = 0; 
-                for (int i = -1; i <= 1; i++) 
-                    for (int j = -1; j <= 1; j++){
+                for (int i = -1; i <= 1; ++i) 
+                    for (int j = -1; j <= 1; ++j){
                         if(!(grid[l + i][m + j].equals("")))    
                             aliveNeighbours += 1; 
                     }
