@@ -26,29 +26,30 @@ public class ButtonGrid extends JPanel {
     final int RULES_Y = 500;  // height of rules window
     final int SMALL_ROW_SIZE = 10, SMALL_COL_SIZE = 10,     // row and col sizes for grids; data array uses large
               MEDIUM_ROW_SIZE = 20, MEDIUM_COL_SIZE = 20,
-              LARGE_ROW_SIZE = 30, LARGE_COL_SIZE = 30;
+              LARGE_ROW_SIZE = 30, LARGE_COL_SIZE = 30,
+              SMALL_ROW_HEIGHT = 60, MEDIUM_ROW_HEIGHT = 30, LARGE_ROW_HEIGHT = 20;
     final String [][] data = new String[LARGE_ROW_SIZE][LARGE_COL_SIZE];
     final JButton NEXT, SETTINGS, RANDOMIZE, RULES, START, STOP;
     final JPanel BUTTON_PANEL;
     final JScrollPane SP;
     boolean isRunning = false;
-    
-    public JTable createSmallTable() {
-        // Fill in cols array with empty string data
-        Object [] cols = new Object[SMALL_COL_SIZE];
-        for (int i = 0; i < SMALL_COL_SIZE; ++i) {
-            cols[i] = "";
+
+    public JTable createTable(final int ROW_SIZE, final int COL_SIZE, final int ROW_HEIGHT) {
+        // Assign column names as numbers 1 through COL_SIZE
+        String [] colNames = new String[COL_SIZE];
+        for (int i = 0; i < COL_SIZE; ++i) {
+            colNames[i] = String.valueOf(i + 1);
         }
 
-        // Fill in rows array with empty string data
-        String[][] rows = new String[SMALL_ROW_SIZE][SMALL_COL_SIZE];
-        for (int i = 0; i < SMALL_ROW_SIZE; ++i) {
-            for (int j = 0; j < SMALL_COL_SIZE; ++j) {
-                rows[i][j] = "";
+        // Fill in rowData array with empty string data
+        String[][] rowData = new String[ROW_SIZE][COL_SIZE];
+        for (int i = 0; i < ROW_SIZE; ++i) {
+            for (int j = 0; j < COL_SIZE; ++j) {
+                rowData[i][j] = "";
             }
         }
 
-        JTable t = new JTable(rows, cols) {
+        JTable t = new JTable(rowData, colNames) {
             public Component prepareRenderer(TableCellRenderer renderer, int row, int col) {
                 Component comp = super.prepareRenderer(renderer, row, col);
                 String value = (getModel().getValueAt(row, col)).toString();
@@ -61,71 +62,7 @@ public class ButtonGrid extends JPanel {
                 return comp;
             }
         };
-        t.setRowHeight(50);
-        return t;
-    }
-
-    public JTable createMediumTable() {
-        // Fill in cols array with empty string data
-        Object [] cols = new Object[MEDIUM_COL_SIZE];
-        for (int i = 0; i < MEDIUM_COL_SIZE; ++i) {
-            cols[i] = "";
-        }
-
-        // Fill in rows array with empty string data
-        String[][] rows = new String[MEDIUM_ROW_SIZE][MEDIUM_COL_SIZE];
-        for (int i = 0; i < MEDIUM_ROW_SIZE; ++i) {
-            for (int j = 0; j < MEDIUM_COL_SIZE; ++j) {
-                rows[i][j] = "";
-            }
-        }
-
-        JTable t = new JTable(rows, cols) {
-            public Component prepareRenderer(TableCellRenderer renderer, int row, int col) {
-                Component comp = super.prepareRenderer(renderer, row, col);
-                String value = (getModel().getValueAt(row, col)).toString();
-                if (!value.isEmpty()) {
-                    comp.setBackground(selectedColor);
-                }
-                else {
-                    comp.setBackground(Color.white);
-                }
-                return comp;
-            }
-        };
-        t.setRowHeight(25);
-        return t;
-    }
-
-    public JTable createLargeTable() {
-        // Fill in cols array with empty string data
-        Object [] cols = new Object[LARGE_COL_SIZE];
-        for (int i = 0; i < LARGE_COL_SIZE; ++i) {
-            cols[i] = "";
-        }
-
-        // Fill in rows array with empty string data
-        String[][] rows = new String[LARGE_ROW_SIZE][LARGE_COL_SIZE];
-        for (int i = 0; i < LARGE_ROW_SIZE; ++i) {
-            for (int j = 0; j < LARGE_COL_SIZE; ++j) {
-                rows[i][j] = "";
-            }
-        }
-
-        JTable t = new JTable(rows, cols) {
-            public Component prepareRenderer(TableCellRenderer renderer, int row, int col) {
-                Component comp = super.prepareRenderer(renderer, row, col);
-                String value = (getModel().getValueAt(row, col)).toString();
-                if (!value.isEmpty()) {
-                    comp.setBackground(selectedColor);
-                }
-                else {
-                    comp.setBackground(Color.white);
-                }
-                return comp;
-            }
-        };
-        t.setRowHeight(15);
+        t.setRowHeight(ROW_HEIGHT);
         return t;
     }
 
@@ -166,7 +103,7 @@ public class ButtonGrid extends JPanel {
                         "Settings allows you to change the grid size, cell color, and listen to music!");
         text.setEditable(false);
 
-        table = createSmallTable();
+        table = createTable(SMALL_ROW_SIZE, SMALL_COL_SIZE, SMALL_ROW_HEIGHT);
         SP = new JScrollPane(table);
         JPanel temp = new JPanel();
         temp.setLayout(new GridLayout(2,1));
@@ -212,19 +149,19 @@ public class ButtonGrid extends JPanel {
                     gridSize = f.tempSize;
                     selectedColor = f.temp;
                     if (gridSize.equals("Small")) {
-                        table = createSmallTable();
+                        table = createTable(SMALL_ROW_SIZE, SMALL_COL_SIZE, SMALL_ROW_HEIGHT);
                         SP.setViewportView(table);
                         length = 10;
                         width = 10;
                     }
                     if (gridSize.equals("Medium")) {
-                        table = createMediumTable();
+                        table = createTable(MEDIUM_ROW_SIZE, MEDIUM_COL_SIZE, MEDIUM_ROW_HEIGHT);
                         SP.setViewportView(table);
                         length = 20;
                         width = 20;
                     }
                     if (gridSize.equals("Large")) {
-                        table = createLargeTable();
+                        table = createTable(LARGE_ROW_SIZE, LARGE_COL_SIZE, LARGE_ROW_HEIGHT);
                         SP.setViewportView(table);
                         length = 30;
                         width = 30;
