@@ -120,7 +120,7 @@ public class Settings extends JFrame {
         G2.add(jRadioSize3);
 
         // Add a music button to settings menu
-        ImageIcon power = new ImageIcon("power.png"); // To be used to add power icon to button
+        ImageIcon power = new ImageIcon("power.png"); // Adds power icon to button
         musicButton = new JButton(power);
 
         G3 = new ButtonGroup();

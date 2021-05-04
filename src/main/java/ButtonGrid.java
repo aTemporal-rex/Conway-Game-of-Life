@@ -22,9 +22,9 @@ public class ButtonGrid extends JPanel {
     String gridSize = "Small"; 
     JTable table;
     int length = 10, width = 10;
-    final int RULES_X = 1200; // width of rules window
-    final int RULES_Y = 500;  // height of rules window
-    final int SMALL_ROW_SIZE = 10, SMALL_COL_SIZE = 10,     // row and col sizes for grids; data array uses large
+    final int RULES_X = 1200; // Width of rules window
+    final int RULES_Y = 500;  // Height of rules window
+    final int SMALL_ROW_SIZE = 10, SMALL_COL_SIZE = 10, // Row and col sizes for grids; data array uses large
               MEDIUM_ROW_SIZE = 20, MEDIUM_COL_SIZE = 20,
               LARGE_ROW_SIZE = 30, LARGE_COL_SIZE = 30,
               SMALL_ROW_HEIGHT = 60, MEDIUM_ROW_HEIGHT = 30, LARGE_ROW_HEIGHT = 20;
@@ -49,6 +49,7 @@ public class ButtonGrid extends JPanel {
             }
         }
 
+        // Creating JTable
         JTable t = new JTable(rowData, colNames) {
             public Component prepareRenderer(TableCellRenderer renderer, int row, int col) {
                 Component comp = super.prepareRenderer(renderer, row, col);
@@ -62,6 +63,7 @@ public class ButtonGrid extends JPanel {
                 return comp;
             }
         };
+
         t.setRowHeight(ROW_HEIGHT);
         return t;
     }
@@ -70,17 +72,18 @@ public class ButtonGrid extends JPanel {
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        RANDOMIZE = new JButton("Randomize");
+        // Initializing button text and colors
+        RANDOMIZE = new JButton("RANDOMIZE");
         RANDOMIZE.setBackground(Color.lightGray);
-        NEXT = new JButton("Next");
+        NEXT = new JButton("NEXT");
         NEXT.setBackground(Color.lightGray);
-        START = new JButton("Start");
+        START = new JButton("START");
         START.setBackground(Color.lightGray);
-        STOP = new JButton("Stop");
+        STOP = new JButton("STOP");
         STOP.setBackground(Color.lightGray);
-        SETTINGS = new JButton("Settings");
+        SETTINGS = new JButton("SETTINGS");
         SETTINGS.setBackground(Color.lightGray);
-        RULES = new JButton("Rules");
+        RULES = new JButton("RULES");
         RULES.setBackground(Color.lightGray);
 
         BUTTON_PANEL = new JPanel();
@@ -92,15 +95,16 @@ public class ButtonGrid extends JPanel {
         BUTTON_PANEL.add(SETTINGS);
         BUTTON_PANEL.add(RULES);
 
+        // Text to be shown on the starting screen
         JTextArea text = new JTextArea();
         Font font = new Font("Times New Roman", Font.BOLD, 20);
         text.setFont(font);
         text.append("Welcome to Conway's Game of Life \n");
         text.append("To begin, fill the board with any key / text. \n" +
-                        "The Randomize button allows you to randomize the board. \n" +
-                        "Click Next to show the next iteration using the game's algorithm. \n" +
-                        "Click Start to iterate automatically, and Stop to stop. \n" +
-                        "Settings allows you to change the grid size, cell color, and listen to music!");
+                        "The RANDOMIZE button allows you to randomize the board. \n" +
+                        "Click NEXT to show the next iteration using the game's algorithm. \n" +
+                        "Click START to iterate automatically, and STOP to stop. \n" +
+                        "SETTINGS allows you to change the grid size, cell color, and pause/resume the music!");
         text.setEditable(false);
 
         table = createTable(SMALL_ROW_SIZE, SMALL_COL_SIZE, SMALL_ROW_HEIGHT);
@@ -115,12 +119,12 @@ public class ButtonGrid extends JPanel {
         frame.setVisible(true);
         frame.setResizable(false);
 
+        // Filling data array with empty string data
         for (int i = 0; i < LARGE_ROW_SIZE; ++i) {
             for (int j = 0; j < LARGE_COL_SIZE; ++j) {
                 data[i][j] = "";
             }
         }
-
         
         RANDOMIZE.addActionListener(e -> {
             for (int i = 0; i < table.getRowCount(); ++i) {
