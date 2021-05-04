@@ -1,11 +1,12 @@
 import javax.swing.*;
 
-public class Steps {
+// IN FUTURE THIS CLASS WILL BE USED TO CLEANUP ButtonGrid.java
+public class Stepper {
     JTable table;
     String[][] data;
     int length, width;
 
-    public Steps(JTable table, String[][] data, int length, int width) {
+    public Stepper(JTable table, String[][] data, int length, int width) {
         this.table = table;
         this.data = data;
         this.length = length;

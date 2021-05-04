@@ -163,7 +163,7 @@ public class Settings extends JFrame {
                 qual = "NO Button selected";
             }
 
-            // MessageDialog to show information selected radion buttons.
+            // MessageDialog to show information of selected radio buttons.
             JOptionPane.showMessageDialog(Settings.this, qual);
         });
 
@@ -188,7 +188,7 @@ public class Settings extends JFrame {
                 qual = "NO Button selected";
             }
 
-            // MessageDialog to show information selected radion buttons.
+            // MessageDialog to show information of selected radio buttons.
             JOptionPane.showMessageDialog(Settings.this, qual);
         });
 

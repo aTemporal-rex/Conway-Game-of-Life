@@ -3,8 +3,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Random;
@@ -23,36 +21,33 @@ public class ButtonGrid extends JPanel {
     Color selectedColor = Color.BLACK;
     String gridSize = "Small"; 
     JTable table;
-    int length = 10;
-    int width = 10;
-    final int rulesX = 1200; // width of rules window
-    final int rulesY = 500;  // height of rules window
-    final int ROW_SIZE = 30, COL_SIZE = 30;
-    final String [][] data = new String[ROW_SIZE][COL_SIZE];
-    final JButton next;
-    final JButton settings;
-    final JButton randomize;
-    final JButton rules;
-    final JButton start;
-    final JButton stop;
-    final JPanel buttonPanel;
-    final JScrollPane sp;
+    int length = 10, width = 10;
+    final int RULES_X = 1200; // width of rules window
+    final int RULES_Y = 500;  // height of rules window
+    final int SMALL_ROW_SIZE = 10, SMALL_COL_SIZE = 10,     // row and col sizes for grids; data array uses large
+              MEDIUM_ROW_SIZE = 20, MEDIUM_COL_SIZE = 20,
+              LARGE_ROW_SIZE = 30, LARGE_COL_SIZE = 30;
+    final String [][] data = new String[LARGE_ROW_SIZE][LARGE_COL_SIZE];
+    final JButton NEXT, SETTINGS, RANDOMIZE, RULES, START, STOP;
+    final JPanel BUTTON_PANEL;
+    final JScrollPane SP;
     boolean isRunning = false;
     
     public JTable createSmallTable() {
-        Object[] cols = {"", "", "", "", "", "", "", "", "", "",};
-        String[][] rows = { 
-            { "", "", "", "", "", "", "", "", "", "",},
-            { "", "", "", "", "", "", "", "", "", "",},
-            { "", "", "", "", "", "", "", "", "", "",},
-            { "", "", "", "", "", "", "", "", "", "",},
-            { "", "", "", "", "", "", "", "", "", "",},
-            { "", "", "", "", "", "", "", "", "", "",},
-            { "", "", "", "", "", "", "", "", "", "",},
-            { "", "", "", "", "", "", "", "", "", "",},
-            { "", "", "", "", "", "", "", "", "", "",},
-            { "", "", "", "", "", "", "", "", "", "",}
-        };
+        // Fill in cols array with empty string data
+        Object [] cols = new Object[SMALL_COL_SIZE];
+        for (int i = 0; i < SMALL_COL_SIZE; ++i) {
+            cols[i] = "";
+        }
+
+        // Fill in rows array with empty string data
+        String[][] rows = new String[SMALL_ROW_SIZE][SMALL_COL_SIZE];
+        for (int i = 0; i < SMALL_ROW_SIZE; ++i) {
+            for (int j = 0; j < SMALL_COL_SIZE; ++j) {
+                rows[i][j] = "";
+            }
+        }
+
         JTable t = new JTable(rows, cols) {
             public Component prepareRenderer(TableCellRenderer renderer, int row, int col) {
                 Component comp = super.prepareRenderer(renderer, row, col);
@@ -71,29 +66,20 @@ public class ButtonGrid extends JPanel {
     }
 
     public JTable createMediumTable() {
-        Object[] cols = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",};
-        String[][] rows = { 
-            { "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",},
-            { "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",},
-            { "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",},
-            { "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",},
-            { "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",},
-            { "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",},
-            { "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",},
-            { "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",},
-            { "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",},
-            { "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",},
-            { "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",},
-            { "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",},
-            { "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",},
-            { "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",},
-            { "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",},
-            { "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",},
-            { "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",},
-            { "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",},
-            { "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",},
-            { "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",}
-        };
+        // Fill in cols array with empty string data
+        Object [] cols = new Object[MEDIUM_COL_SIZE];
+        for (int i = 0; i < MEDIUM_COL_SIZE; ++i) {
+            cols[i] = "";
+        }
+
+        // Fill in rows array with empty string data
+        String[][] rows = new String[MEDIUM_ROW_SIZE][MEDIUM_COL_SIZE];
+        for (int i = 0; i < MEDIUM_ROW_SIZE; ++i) {
+            for (int j = 0; j < MEDIUM_COL_SIZE; ++j) {
+                rows[i][j] = "";
+            }
+        }
+
         JTable t = new JTable(rows, cols) {
             public Component prepareRenderer(TableCellRenderer renderer, int row, int col) {
                 Component comp = super.prepareRenderer(renderer, row, col);
@@ -166,27 +152,27 @@ public class ButtonGrid extends JPanel {
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        randomize = new JButton("Randomize");
-        randomize.setBackground(Color.lightGray);
-        next = new JButton("Next");
-        next.setBackground(Color.lightGray);
-        start = new JButton("Start");
-        start.setBackground(Color.lightGray);
-        stop = new JButton("Stop");
-        stop.setBackground(Color.lightGray);
-        settings = new JButton("Settings");
-        settings.setBackground(Color.lightGray);
-        rules = new JButton("Rules");
-        rules.setBackground(Color.lightGray);
+        RANDOMIZE = new JButton("Randomize");
+        RANDOMIZE.setBackground(Color.lightGray);
+        NEXT = new JButton("Next");
+        NEXT.setBackground(Color.lightGray);
+        START = new JButton("Start");
+        START.setBackground(Color.lightGray);
+        STOP = new JButton("Stop");
+        STOP.setBackground(Color.lightGray);
+        SETTINGS = new JButton("Settings");
+        SETTINGS.setBackground(Color.lightGray);
+        RULES = new JButton("Rules");
+        RULES.setBackground(Color.lightGray);
 
-        buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(1,4));
-        buttonPanel.add(randomize);
-        buttonPanel.add(next);
-        buttonPanel.add(start);
-        buttonPanel.add(stop);
-        buttonPanel.add(settings);
-        buttonPanel.add(rules);
+        BUTTON_PANEL = new JPanel();
+        BUTTON_PANEL.setLayout(new GridLayout(1,4));
+        BUTTON_PANEL.add(RANDOMIZE);
+        BUTTON_PANEL.add(NEXT);
+        BUTTON_PANEL.add(START);
+        BUTTON_PANEL.add(STOP);
+        BUTTON_PANEL.add(SETTINGS);
+        BUTTON_PANEL.add(RULES);
 
         JTextArea text = new JTextArea();
         Font font = new Font("Times New Roman", Font.BOLD, 20);
@@ -200,25 +186,25 @@ public class ButtonGrid extends JPanel {
         text.setEditable(false);
 
         table = createSmallTable();
-        sp = new JScrollPane(table);
+        SP = new JScrollPane(table);
         JPanel temp = new JPanel();
         temp.setLayout(new GridLayout(2,1));
         temp.add(text);
-        temp.add(buttonPanel);
-        frame.add(sp, BorderLayout.CENTER);
+        temp.add(BUTTON_PANEL);
+        frame.add(SP, BorderLayout.CENTER);
         frame.add(temp, BorderLayout.SOUTH);
         frame.setSize(1000, 1000);
         frame.setVisible(true);
         frame.setResizable(false);
 
-        for (int i = 0; i < ROW_SIZE; ++i) {
-            for (int j = 0; j < COL_SIZE; ++j) {
+        for (int i = 0; i < LARGE_ROW_SIZE; ++i) {
+            for (int j = 0; j < LARGE_COL_SIZE; ++j) {
                 data[i][j] = "";
             }
         }
 
         
-        randomize.addActionListener(e -> {
+        RANDOMIZE.addActionListener(e -> {
             for (int i = 0; i < table.getRowCount(); ++i) {
                 for (int j = 0; j < table.getColumnCount(); ++j) {
                     if (new Random().nextBoolean()) {
@@ -233,9 +219,9 @@ public class ButtonGrid extends JPanel {
             }
         });
         
-        next.addActionListener(e -> step(table, data, length, width));
+        NEXT.addActionListener(e -> step(table, data, length, width));
 
-        settings.addActionListener(e -> {
+        SETTINGS.addActionListener(e -> {
             Settings f = new Settings(selectedColor,gridSize);
             f.setBounds(100, 100, 800, 800);
             f.setTitle("Settings");
@@ -246,19 +232,19 @@ public class ButtonGrid extends JPanel {
                     selectedColor = f.temp;
                     if (gridSize.equals("Small")) {
                         table = createSmallTable();
-                        sp.setViewportView(table);
+                        SP.setViewportView(table);
                         length = 10;
                         width = 10;
                     }
                     if (gridSize.equals("Medium")) {
                         table = createMediumTable();
-                        sp.setViewportView(table);
+                        SP.setViewportView(table);
                         length = 20;
                         width = 20;
                     }
                     if (gridSize.equals("Large")) {
                         table = createLargeTable();
-                        sp.setViewportView(table);
+                        SP.setViewportView(table);
                         length = 30;
                         width = 30;
                     }
@@ -266,14 +252,14 @@ public class ButtonGrid extends JPanel {
             });
         });
 
-        rules.addActionListener(e -> {
-            Rules rulesWindow = new Rules(rulesX, rulesY);
-            rulesWindow.setBounds(100, 100, rulesX, rulesY);
+        RULES.addActionListener(e -> {
+            Rules rulesWindow = new Rules(RULES_X, RULES_Y);
+            rulesWindow.setBounds(100, 100, RULES_X, RULES_Y);
             rulesWindow.setTitle("Rules");
             rulesWindow.setVisible(true);
         });
 
-        start.addActionListener(e -> {
+        START.addActionListener(e -> {
             isRunning = true;
             Timer timer = new Timer();
             TimerTask task = new TimerTask() {
@@ -291,7 +277,7 @@ public class ButtonGrid extends JPanel {
             timer.scheduleAtFixedRate(task, 0, 770);
         });
 
-        stop.addActionListener(e -> isRunning = false);
+        STOP.addActionListener(e -> isRunning = false);
     }
 
     public void step(JTable table, String[][] data, int length, int width) {
